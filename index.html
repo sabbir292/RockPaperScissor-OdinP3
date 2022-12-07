@@ -7,9 +7,42 @@
     <link rel="stylesheet" href="style.css">
     <title>RockPaperScissor</title>
 </head>
-<body>
-    <h1>hello world</h1>
 
+
+<body>
+
+    <video autoplay muted loop class="myVideo">
+        <source src="./Images/Compresed-X-Family.m4v" type="video/mp4">
+      </video>
+    
+    <h1 class="title">Rock Paper Scissor</h1>
+    <div class="container">
+
+        <div class="show-result">
+            <h2>Most wins in 5 round wins</h2>
+        </div>
+        
+        <div class="selection">
+            <span class="button-selected player-selection">❓</span>
+            <span class="button-selected computer-selection">❓</span>
+        </div>
+
+        <div class="round">
+            <span class="player">Player : 0</span>
+            <span class="computer">Computer : 0</span>
+        </div>
+        
+            <div class="buttons">
+                <button class="btn rock">✊</button>
+                <button class="btn paper">🖐️</button>
+                <button class="btn scissor">✌️</button>
+            </div>
+            <div class="modal">
+                <h3 class="message">You Won!</h3>
+                <button class="modal-btn">Play Again</button>
+            </div>
+    </div>
+    <footer class="footer">copyright@SabbirHossain</footer>
 
     <script src="app.js"></script>
 </body>

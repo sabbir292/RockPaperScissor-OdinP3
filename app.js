@@ -1,44 +1,124 @@
-// 1. create a array that holds rock, paper and scissor. 
+
+
+let playerScore = 0
+let computerScore = 0
+
+
 const data = ["rock", "paper", "scissor"]
 
-// 2. create a function called "Random" that generate a random index between 0 to 3.
-
-function random(){
-    return Math.floor(Math.random()*3)
+//******************************* */
+function random() {
+    return Math.floor(Math.random() * 3)
 }
-// console.log(data[random()])
-
-// 3. Use random function as the index of the array so that it selects any of those three choices randomly and create another funcion called getComputerChoice that return either rock , paper or scissor.
-
-function getComputerChoice(){
+function getComputerChoice() {
     return data[random()]
 }
-// console.log(getComputerChoice())
 
 
-// 5. write function called playRound that playes a single round of the game. the function should take two parameter as playerSelection and computerSelection.-----why tow parameter?? because these two parameter is going hold the value of our choices, if the player selects rock its gonna tell the function that the player have selected rock, and its pretty flexible, we can chose paper or scissors in next round. where the coumperSelection will hold any ranodm choices that the function gonna make.
 
-
-function playRound(playerSelection, computerSelection){
-    if(playerSelection.toLowerCase() === "rock" && computerSelection.toLowerCase() === "scissor" || playerSelection.toLowerCase() === "paper" && computerSelection.toLowerCase() === "rock" || playerSelection.toLowerCase() === "scissor" && computerSelection.toLowerCase() === "paper"){
-        console.log(`You win! ${playerSelection} beats ${computerSelection}`)
+function playRound(playerSelection, computerSelection) {
+    
+    if (this.textContent === "✊") {
+        playerSelection = "rock"
+    } else if (this.textContent === "🖐️") {
+        playerSelection = "paper"
+    } else {
+        playerSelection = "scissor"
     }
-    else if(computerSelection.toLowerCase() === "rock" && playerSelection.toLowerCase() === "scissor" || computerSelection.toLowerCase() === "paper" && playerSelection.toLowerCase() === "rock" || computerSelection.toLowerCase() === "scissor" && playerSelection.toLowerCase() === "paper"){
-        console.log(`You Lose! ${computerSelection} beats ${playerSelection}`)
-    }else{
-        console.log("It's a Tie")
+    computerSelection = getComputerChoice()
+
+
+    if (playerSelection === computerSelection) {
+        showResult.textContent = "it's a tie"
+    }
+
+    else if (playerSelection === "rock" && computerSelection === "scissor" || playerSelection === "paper" && computerSelection === "rock" || playerSelection === "✌️" && computerSelection === "paper") {
+        showResult.textContent = `You win! ${playerSelection} beats ${computerSelection}`
+        playerScore++
+        playerCount.textContent = `Player : ${playerScore}`
+
+    }
+    else if (computerSelection === "rock" && playerSelection === "scissor" || computerSelection === "paper" && playerSelection === "rock" || computerSelection === "scissor" && playerSelection === "paper") {
+
+        showResult.textContent = `You lose!!! ${computerSelection} beats ${playerSelection}`
+        computerScore++
+        computerCount.textContent = `Computer : ${computerScore}`
+    }
+    showSelection(playerSelection, computerSelection)
+    activeModal(playerScore, computerScore)
+}
+
+
+//***********convert to emoji ***************/
+
+function showSelection(playerSelection, computerSelection) {
+    switch (playerSelection) {
+        case "rock":
+            console.log("fist")
+            playerChoice.textContent = "✊"
+            break;
+        case "paper":
+            playerChoice.textContent = "🖐️"
+            break;
+        case "scissor":
+            playerChoice.textContent = "✌️"
+        default:
+            break;
+    }
+
+    switch (computerSelection) {
+        case "rock":
+            computerChoice.textContent = "✊"
+            break;
+        case "paper":
+            computerChoice.textContent = "🖐️"
+            break;
+        case "scissor":
+            computerChoice.textContent = "✌️"
+            break;
+
+        default:
+            break;
     }
 }
 
-// write a function called that calls playRound 5 times in a loop. so that the games runs fine time before declaring the winner.
+//**********UI************* */
 
-// the mistake i have made here, i was calling palyRound wihout any arguments. and also console.log(playRound("rock", getComputerChoice)).
-function playFiveRound(){
-    for (i = 0; i < 5; i++){
-        playRound(prompt("Rock Paper Scissor",""), getComputerChoice())
+let buttons = document.querySelectorAll(".btn")
+buttons.forEach(btn => btn.addEventListener("click", playRound))
+
+const playerCount = document.querySelector(".player")
+const computerCount = document.querySelector(".computer")
+
+const showResult = document.querySelector(".show-result h2")
+const finalMessage = document.querySelector(".message")
+
+let computerChoice = document.querySelector(".computer-selection")
+let playerChoice = document.querySelector(".player-selection")
+const showModal = document.querySelector(".modal")
+const playAgainbtn = document.querySelector(".modal-btn")
+
+//******************Reset Game****************** */
+
+function activeModal(playerScore, computerScore) {
+    if (playerScore + computerScore === 5 || playerScore === 5 || computerScore === 5) {
+        showModal.classList.add("show-modal")
+        playAgainbtn.addEventListener("click", reset)
+        playerScore > computerScore ? finalMessage.textContent = "You won" : finalMessage.textContent = "You lost"
     }
 }
 
-console.log(playFiveRound())
 
-// colsole is still trwoing undefined at the end . don't know why . have to find it.
+playAgainbtn.addEventListener("click", reset)
+
+function reset() {
+    playerScore = 0
+    computerScore = 0
+    playerCount.textContent = `player : ${playerScore}`
+    computerCount.textContent = `player : ${computerScore}`
+    playerChoice.textContent = "❓"
+    computerChoice.textContent = "❓"
+    showResult.textContent = "Most wins in 5 round wins"
+    showModal.classList.remove("show-modal")
+
+}
