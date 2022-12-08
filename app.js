@@ -17,7 +17,7 @@ function getComputerChoice() {
 
 
 function playRound(playerSelection, computerSelection) {
-    
+
     if (this.textContent === "✊") {
         playerSelection = "rock"
     } else if (this.textContent === "🖐️") {
